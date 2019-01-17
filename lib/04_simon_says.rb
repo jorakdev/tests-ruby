@@ -1,62 +1,32 @@
-class String
-  def initial
-    self[0,1]
-  end
+def echo(word)
+	return word
 end
 
-class String
-  def two
-    self[0,2]
-  end
+def shout(word)
+	return word.upcase
 end
 
-class String
-  def three
-    self[0,3]
-  end
+def repeat(word, i=2)
+	return word + (" #{word}" * (i-1)) #1er ocu sans espace & n-1 ocu avec espace
 end
 
-def echo (a)
-  return a
+def start_of_word(word, i)
+	return word.byteslice(0, i)#byteslice passe en arg les indices
 end
 
-def shout(b)
-  return b.upcase
-end
-
-def repeat(c,d=3)
-  res = c
-  for i in 1..d-1
-    espace = " "
-    res = res + (espace + c)
-  end
-  return res
-  end
-
-def start_of_word(a,b=1,c)
-  if c == 3
-    three_first = a.three
-    return three_first
-  end
-  if c == 2
-    two_first = a.two
-    return two_first
-  end
-  if b == 1
-    one_first = a.initial
-    return one_first
-  end
-end
-
-def first_word(wrd)
-  return "#{wrd.partition(" ").first}"
+def first_word(phrase)
+	return phrase.slice(/\w+/) #w+ = longueur d'un mot
 end
 
 
-def titleize(my_string)
-  #first_world = cap.capitalize
-  #return first_world
-  downcase_words = ["and","the"]
-  res = my_string.split(' ').each{ |word| (downcase_words.include? word.downcase) ?
-                                     word.downcase! : word.capitalize! }.join(' ')
+def titleize(phrase)
+	phrase_ = phrase.capitalize.split(' ') #debut de phrase -> maj
+	phrase_.each_with_index do |e, i|
+		if e.length > 3 # moins de 3 lettres pas de maj
+			phrase_[i].replace(e.capitalize)
+		end
+	end
+	return phrase_.join(' ')
 end
+
+puts titleize("the bridge over the river kwai")
